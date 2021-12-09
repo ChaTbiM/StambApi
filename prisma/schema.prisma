@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model classes {
+  id         Int      @id @default(autoincrement())
+  end_year   Int
+  grade      Int
+  specialty  String   @db.VarChar(30)
+  start_year Int
+  module     String   @db.VarChar(30)
+  groups     groups[]
+}
+model groups {
+  id      Int     @id @default(autoincrement())
+  type    String  @db.VarChar(30)
+  number  Int
+  classId Int
+  class   classes @relation(fields: [classId], references: [id])
+
+  @@index([classId], map: "groups_classId_fkey")
+}
