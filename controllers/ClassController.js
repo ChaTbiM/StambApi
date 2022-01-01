@@ -110,21 +110,20 @@ const deleteClass = async (req, res) => {
 
 }
 
-const editClass = async (req, res) => {
-    const { classId, module, specialty, grade } = req.body;
-
+const updateClass = async (req, res) => {
+    const { id, module, specialty, grade } = req.body;
     try {
-        const editedClass = await prismaClient.classes.update({
+        const updatedClass = await prismaClient.classes.update({
             where: {
-                id: Number(classId)
+                id: Number(id)
             },
             data: {
                 module,
                 specialty,
-                grade
+                grade:Number(grade),
             }
         })
-        return res.send(editedClass);
+        return res.send(updatedClass);
     } catch (error) {
         console.log(error);
         return res.send(error);
@@ -132,4 +131,4 @@ const editClass = async (req, res) => {
 
 }
 
-module.exports = { getAllActiveClasses, getAllArchivedClasses, createEmptyClass, getAllClassGroups, deleteClass, editClass }
+module.exports = { getAllActiveClasses, getAllArchivedClasses, createEmptyClass, getAllClassGroups, deleteClass, updateClass }
