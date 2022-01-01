@@ -1,5 +1,4 @@
 var express = require('express')
-const { route } = require('express/lib/application')
 var router = express.Router()
 
 const { getAllActiveClasses, getAllArchivedClasses, createEmptyClass, getAllClassGroups, deleteClass, updateClass } = require('../controllers/ClassController')

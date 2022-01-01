@@ -1,17 +1,17 @@
+const { prismaClient } = require("../prismaClient")
 
-const getClassTdGroups = (req, res) => {
+const deleteGroup = async (req, res) => {
     const { groupId } = req.params;
-    console.log("req", groupId)
-    return res.send("groupId " + groupId)
+    try {
+        const deletedGroup = await prismaClient.groups.delete({
+            where: {
+                id: Number(groupId)
+            }
+        })
+        return res.send(deletedGroup);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-const getClassTpGroups = (req, res) => {
-    const groupId = req.params;
-    return res.send("tpgroupID", groupId);
-}
-
-const createGroup = (req, res) => {
-    res.send("new group is created")
-}
-
-module.exports = { getClassTdGroups, getClassTpGroups }
+module.exports = { deleteGroup }
