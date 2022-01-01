@@ -49,12 +49,13 @@ const getAllArchivedClasses = async (req, res) => {
 
 const getAllClassGroups = async (req, res) => {
     const { classId } = req.params;
-    const tdGroups = await prismaClient.groups.findMany({
+    const groups = await prismaClient.groups.findMany({
         where: {
             classId: Number(classId)
         }
     })
-    return res.send(tdGroups);
+
+    return res.send(groups);
 }
 
 const createEmptyClass = async (req, res) => {
