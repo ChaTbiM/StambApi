@@ -21,7 +21,7 @@ model groups {
   type    String  @db.VarChar(30)
   number  Int
   classId Int
-  class   classes @relation(fields: [classId], references: [id])
+  class   classes @relation(fields: [classId], references: [id] , onDelete: Cascade )
 
   @@index([classId], map: "groups_classId_fkey")
 }

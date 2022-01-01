@@ -83,7 +83,7 @@ const createEmptyClass = async (req, res) => {
         data: {
             module,
             specialty,
-            grade:Number(grade),
+            grade: Number(grade),
             start_year,
             end_year,
         }
@@ -93,5 +93,43 @@ const createEmptyClass = async (req, res) => {
     res.send(createdClass);
 }
 
+const deleteClass = async (req, res) => {
+    const { classId } = req.params;
+    const id = Number(classId);
+    try {
+        const deletedClass = await prismaClient.classes.delete({
+            where: {
+                id
+            }
+        })
+        return res.send(deletedClass);
+    } catch (error) {
+        console.log(error);
+        return res.send(error);
+    }
 
-module.exports = { getAllActiveClasses, getAllArchivedClasses, createEmptyClass, getAllClassGroups }
+}
+
+const editClass = async (req, res) => {
+    const { classId, module, specialty, grade } = req.body;
+
+    try {
+        const editedClass = await prismaClient.classes.update({
+            where: {
+                id: Number(classId)
+            },
+            data: {
+                module,
+                specialty,
+                grade
+            }
+        })
+        return res.send(editedClass);
+    } catch (error) {
+        console.log(error);
+        return res.send(error);
+    }
+
+}
+
+module.exports = { getAllActiveClasses, getAllArchivedClasses, createEmptyClass, getAllClassGroups, deleteClass, editClass }
